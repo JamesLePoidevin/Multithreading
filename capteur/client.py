@@ -13,6 +13,7 @@ msg_a_envoyer = b""
 compteur = 0
 while compteur != 100:
     msg_a_envoyer = msg_a_envoyer + str(random.randint(0, 2)).encode()
+    
     # On envoie le message
     connexion_avec_serveur.send(msg_a_envoyer)
     msg_recu = connexion_avec_serveur.recv(1024)
