@@ -8,9 +8,9 @@ with open('backup.json', 'w') as outfile:
     json.dump(data, outfile, indent = 4)
 
 
-def printit() :
+def printit(x) :
     # Starting the thread
-    threading.Timer(1.0, printit).start()
+    #threading.Timer(1.0, printit).start()
 
     # Loading json file
     jsonFile = open('backup.json','r')
@@ -19,7 +19,7 @@ def printit() :
     #print(json_object)
 
     # Modify the values
-    x = random.randint(0,10)
+    #x = random.randint(0,10)
     #Update File
     # Iterate over json items
     for item in json_object :
@@ -41,4 +41,4 @@ def printit() :
     json.dump(json_object, jsonFile, indent = 4)
     jsonFile.close()
 
-printit()
+#printit()
