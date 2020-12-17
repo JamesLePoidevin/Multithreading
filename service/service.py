@@ -1,22 +1,22 @@
 import socket
 
 hote = "localhost"
-portCapteur = 1035
+portCapteur = 1036
 portBackup = 1200
 portWatchdog = 1250
 
 connexion_principale = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connexion_principale.bind((hote, portCapteur))
 connexion_principale.listen(5)
-print("Le Service écoute à présent sur le port {}".format(1035))
+print("Le Service écoute à présent sur le port {}".format(1036))
 
-connexion_avec_Backup = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-connexion_avec_Backup.connect((hote, portBackup))
-print("Connexion établie avec le Backup sur le port {}".format(portBackup))
+#connexion_avec_Backup = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#connexion_avec_Backup.connect((hote, portBackup))
+#print("Connexion établie avec le Backup sur le port {}".format(portBackup))
 
-connexion_avec_Watchdog = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-connexion_avec_Watchdog.connect((hote, portWatchdog))
-print("Connexion établie avec le Watchdog sur le port {}".format(portWatchdog))
+#connexion_avec_Watchdog = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#connexion_avec_Watchdog.connect((hote, portWatchdog))
+#print("Connexion établie avec le Watchdog sur le port {}".format(portWatchdog))
 
 
 connexion_avec_Capteur, infos_connexion = connexion_principale.accept()
