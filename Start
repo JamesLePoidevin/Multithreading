@@ -1,0 +1,7 @@
+Dans 3 terminal different dans l'ordre d'execution indiquer
+
+python ./watchdog/watchdog.py
+
+python ./service/service.py
+
+python ./capteur/client.py
