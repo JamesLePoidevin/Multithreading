@@ -31,11 +31,10 @@ if __name__ == "__main__":
         connexion_avec_Capteur.send(b"5 / 5")
 
     #Discussion avec Watchdog
-    #    msg_to_Watchdog = b"I am alive"
-    #    msg_to_Watchdog = msg_to_Watchdog.encode()
-    #    connexion_avec_Watchdog.send(msg_to_Watchdog)
-    #    reponse_from_watchdog = connexion_avec_Watchdog.recv(1024)
-    #    print(reponse_from_watchdog.decode())
+        msg_to_Watchdog = b"I'm Alive"
+        connexion_avec_Watchdog.send(msg_to_Watchdog)
+        reponse_from_watchdog = connexion_avec_Watchdog.recv(1024)
+        print(reponse_from_watchdog.decode())
 
     #Partie Memoire stable
 
