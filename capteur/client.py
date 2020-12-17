@@ -3,7 +3,7 @@ import random
 import time
 
 hote = "localhost"
-port = 1236
+port = 1036
 
 connexion_avec_serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connexion_avec_serveur.connect((hote, port))
@@ -11,9 +11,8 @@ print("Connexion établie avec le serveur sur le port {}".format(port))
 
 msg_a_envoyer = b""
 compteur = 0
-while compteur != 100:
+while compteur != 50:
     msg_a_envoyer = msg_a_envoyer + str(random.randint(0, 2)).encode()
-    
     # On envoie le message
     connexion_avec_serveur.send(msg_a_envoyer)
     msg_recu = connexion_avec_serveur.recv(1024)
@@ -24,3 +23,4 @@ while compteur != 100:
 
 print("Fermeture de la connexion")
 connexion_avec_serveur.close()
+
