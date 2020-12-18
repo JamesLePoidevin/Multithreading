@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
     launch_from_watchdog = connexion_avec_Watchdog.recv(1024)
 
-     if launch_from_watchdog == b"go" :
+    if launch_from_watchdog == b"go" :
 
         while msg_from_capteur != b"fin":
 
