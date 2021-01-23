@@ -3,11 +3,17 @@ import time
 
 hote = "localhost"
 port = 1251
+port_service_BACKUP = 1400
+
+primary = True
 
 connexion_principale = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connexion_principale.bind((hote, port))
 connexion_principale.listen(5)
 print("Le Service écoute à présent sur le port {}".format(port))
+
+connexion_avec_service_backup = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+connexion_avec_service_backup.connect((hote, port_service_BACKUP))
 
 connexion_avec_Service, infos_connexion = connexion_principale.accept()
 print("Watchdog connecté")
@@ -25,9 +31,11 @@ while msg_from_service != b"fin":
         connexion_avec_Service.send(b"Watchdog 5/5")
     else :
         cmpt += 1
-        if cmpt == 3:
-            print("Compteur avant break : ",cmpt)
-            print("Watchdog TIMEDOUT")
+        if cmpt == 3 and primary:
+            msg_to_Watchdog = b"I'm Alive"
+            connexion_avec_Watchdog.send(msg_to_Watchdog)
+            reponse_from_watchdog = connexion_avec_Watchdog.recv(1024)
+            print("Watchdog TIMEDOUT passsing on Secondary service")
             break 
      
     #print("Compteur : ",cmpt)   

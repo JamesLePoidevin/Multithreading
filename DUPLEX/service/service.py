@@ -82,4 +82,3 @@ if __name__ == "__main__":
     print("Fermeture de la connexion")
     connexion_avec_Watchdog.close()
     connexion_avec_Capteur.close()
-    connexion_principale.close()
