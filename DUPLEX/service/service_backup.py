@@ -3,7 +3,7 @@ import json
 
 hote = "localhost"
 portCapteur = 1036
-portWatchdog = 1251
+portWatchdog = 1252
 portFromWatchdog = 1400
 
 def connexion():
@@ -12,19 +12,24 @@ def connexion():
     connexion_server_capteur.listen(5)
     print("Le Service Backup écoute à présent le capteur sur le port {}".format(portCapteur))
 
+    connexion_avec_Capteur, infos_connexion_capteur = connexion_server_capteur.accept()
+
+    return connexion_avec_Capteur
+
+def connexion_watchdog():
     connexion_server_watchdog = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     connexion_server_watchdog.bind((hote, portFromWatchdog))
     connexion_server_watchdog.listen(5)
     print("Le Service Backup écoute à présent le watchdog sur le port {}".format(portFromWatchdog))
 
+
     connexion_client_Watchdog = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     connexion_client_Watchdog.connect((hote, portWatchdog))
     print("Connexion établie du Service Backup (client) avec le Watchdog sur le port {}".format(portWatchdog))
 
-    connexion_avec_Capteur, infos_connexion_capteur = connexion_server_capteur.accept()
     connexion_avec_Watchdog, infos_connexion_watchdog = connexion_server_watchdog.accept()
 
-    return [connexion_avec_Capteur, connexion_avec_Watchdog, connexion_client_Watchdog]
+    return [connexion_avec_Watchdog, connexion_client_Watchdog]
 
 def printit(x) :
     # Starting the thread
@@ -61,17 +66,19 @@ def printit(x) :
 
 if __name__ == "__main__":
     
-    [connexion_avec_Capteur, connexion_avec_Watchdog, connexion_client_Watchdog] = connexion()
+    [connexion_avec_Watchdog, connexion_client_Watchdog] = connexion_watchdog()
 
     msg_to_Backup = b""
     msg_from_capteur = b""
 
     launch_from_watchdog = connexion_avec_Watchdog.recv(1024)
-
     if launch_from_watchdog == b"go" :
+        connexion_avec_Capteur = connexion()
+        
+        print("test")
 
         while msg_from_capteur != b"fin":
-
+            
         #Reception depuis capteur
             msg_from_capteur = connexion_avec_Capteur.recv(1024)
             print(msg_from_capteur.decode())
@@ -81,7 +88,6 @@ if __name__ == "__main__":
             msg_to_Watchdog = b"I'm Alive"
             connexion_client_Watchdog.send(msg_to_Watchdog)
             reponse_from_watchdog = connexion_client_Watchdog.recv(1024)
-            #print(reponse_from_watchdog.decode())
 
 
         #Partie Memoire stable

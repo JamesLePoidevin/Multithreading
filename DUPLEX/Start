@@ -4,4 +4,6 @@ python ./watchdog/watchdog.py
 
 python ./service/service.py
 
+python ./service/service_backup.py
+
 python ./capteur/client.py
